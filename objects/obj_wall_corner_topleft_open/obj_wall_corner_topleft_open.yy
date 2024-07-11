@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"obj_wall_corner_topleft_open",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"obj_wall_corner_topleft_open",
   "overriddenProperties":[],
@@ -26,7 +28,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"spr_wall_corner_topright",
     "path":"sprites/spr_wall_corner_topright/spr_wall_corner_topright.yy",

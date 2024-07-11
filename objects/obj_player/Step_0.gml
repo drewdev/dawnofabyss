@@ -5,7 +5,7 @@ var dir_right = 0;
 var dir_left = 180;
 
 // Velocidad de movimiento
-var move_speed = 6;
+var move_speed = 7;
 
 // Verificar si se ha hecho clic en el ratón
 if (mouse_check_button_released(mb_left)) {
@@ -28,8 +28,16 @@ if (target_set) {
     // Mover al personaje
     if (distance > move_speed) {
         var angle = point_direction(x, y, target_x, target_y);
-        x += lengthdir_x(move_speed, angle);
-        y += lengthdir_y(move_speed, angle);
+        var new_x = x + lengthdir_x(move_speed, angle);
+        var new_y = y + lengthdir_y(move_speed, angle);
+
+        // Verificar colisiones antes de actualizar la posición
+        if (!scr_check_collision(new_x, y)) {
+            x = new_x;
+        }
+        if (!scr_check_collision(x, new_y)) {
+            y = new_y;
+        }
     } else {
         // Si el personaje ha alcanzado el objetivo, detener el movimiento y destruir el objetivo
         x = target_x;

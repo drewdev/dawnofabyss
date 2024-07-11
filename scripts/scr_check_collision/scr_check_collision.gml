@@ -1,23 +1,22 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_check_collision(){
-	/// @description scr_check_collision(obj, new_x, new_y)
-	/// @param obj El objeto que se va a mover
-	/// @param new_x La nueva posición x del objeto
-	/// @param new_y La nueva posición y del objeto
+	/// @description Check for collisions at a given position
+	/// @param check_x
+	/// @param check_y
+	var check_x = argument0;
+	var check_y = argument1;
 
-	var obj = argument0;
-	var new_x = argument1;
-	var new_y = argument2;
-
-	// Verificar colisiones horizontales
-	if (!place_meeting(new_x, y, obj_wall)) {
-	    obj.x = new_x;
+	// Verificar colisión con obj_wall_top y obj_wall_bottom
+	if (place_meeting(check_x, check_y, obj_wall_top) || 
+	    place_meeting(check_x, check_y, obj_wall_bottom) || 
+		
+	    place_meeting(check_x, check_y, obj_wall_left_collision) || 
+	    place_meeting(check_x, check_y, obj_wall_right_collision)) 
+		
+		
+	{
+	    return true;
 	}
-
-	// Verificar colisiones verticales
-	if (!place_meeting(x, new_y, obj_wall)) {
-	    obj.y = new_y;
-	}
-
+	return false;
 }

@@ -14,6 +14,9 @@ function reset_map() {
     with (obj_wall_right) instance_destroy();
     with (obj_dark) instance_destroy();
 	with (obj_boss_door) instance_destroy();
+	with (obj_wall_left_collision) instance_destroy();
+	with (obj_wall_right_collision) instance_destroy();
+	
     // reset items
     with (obj_library) instance_destroy();
     with (obj_chest) instance_destroy();

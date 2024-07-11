@@ -26,7 +26,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"spr_wall_corner_topright",
     "path":"sprites/spr_wall_corner_topright/spr_wall_corner_topright.yy",

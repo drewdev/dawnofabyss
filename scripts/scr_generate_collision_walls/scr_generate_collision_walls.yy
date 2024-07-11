@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_generate_collision_walls",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_generate_collision_walls",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

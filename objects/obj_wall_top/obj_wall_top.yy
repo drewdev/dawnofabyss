@@ -28,7 +28,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"spr_wall_top",
     "path":"sprites/spr_wall_top/spr_wall_top.yy",

@@ -1,7 +1,7 @@
 function draw_map() {
     var player_placed = false;
     var new_object_count = 0; // Contador de obj_new_object colocadas
-    var max_attempts = 300; // Límite de intentos para evitar bucles infinitos
+    var max_attempts = 200; // Límite de intentos para evitar bucles infinitos
     var entry_x, entry_y, exit_x, exit_y; // Variables para almacenar las posiciones de entrada y salida
     var entry_room_index = -1, exit_room_index = -1;
 
@@ -68,7 +68,6 @@ function draw_map() {
                 }
             } else if (is_open_corner(map_x, map_y)) {
                 // Esquinas abiertas
-                show_debug_message("Open corner at (" + string(map_x) + ", " + string(map_y) + ")");
                 if (is_floor(map_x + 1, map_y) && is_floor(map_x, map_y - 1) && !is_floor(map_x + 1, map_y - 1)) {
                     instance_create_layer(map_x * 256, map_y * 256, "Instances", obj_wall_corner_topright_open);
                 } else if (is_floor(map_x - 1, map_y) && is_floor(map_x, map_y - 1) && !is_floor(map_x - 1, map_y - 1)) {
@@ -117,13 +116,10 @@ function draw_map() {
                 if (is_dark(map_x + 1, map_y) && instance_position((map_x + 1) * 256, map_y * 256, obj_wall_bottom) != noone) {
                     instance_create_layer((map_x + 1) * 256, map_y * 256, "Instances", obj_wall_corner_topleft_open);
                 }
-				
             } else {
                 // Dibujar celda oscura
                 instance_create_layer(map_x * 256, map_y * 256, "Instances", obj_dark);
-				
             }
-			
         }
         // Añadir objetos aleatoriamente
         generate_random_objects();
@@ -172,9 +168,9 @@ function draw_map() {
         }
     }
 
-    // Generar 3 instancias de obj_new_object en paredes aleatorias
-
+	var new_object_count = 0;
 	var attempts = 0; // Contador de intentos
+	var max_attempts = 300; // Aumentamos el límite de intentos
 	var instance = obj_library;
 	while (new_object_count < 3 && attempts < max_attempts) {
 	    // Escoger una posición aleatoria dentro del mapa
@@ -186,12 +182,10 @@ function draw_map() {
 	        instance_position((obj_x - 1) * 256, obj_y * 256, obj_wall_bottom) != noone &&
 	        instance_position((obj_x + 1) * 256, obj_y * 256, obj_wall_bottom) != noone) {
 				if (global.level mod 5 == 0 && new_object_count == 0) {
-					instance = obj_boss_door;	
-				} else {
-					instance = obj_library;
-				}
-				instance_create_layer(obj_x * 256 + 120, obj_y * 256 + 30, "Instances", instance);
-				new_object_count++;
+					instance = obj_boss_door;
+				} else { instance = obj_library }
+	        instance_create_layer(obj_x * 256 + 120, obj_y * 256 + 30, "Instances", instance);
+	        new_object_count++;
 	    }
 	    attempts++;
 	}
@@ -201,4 +195,7 @@ function draw_map() {
 	} else {
 	    show_debug_message("Todas las instancias de obj_library colocadas.");
 	}
+	
+	generate_collision_walls();
+	
 }

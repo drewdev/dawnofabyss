@@ -1,8 +1,8 @@
 // Tamaño de la vista y el puerto (ajusta según tu resolución)
 view_width = 2560;
 view_height = 1440;
-//view_width = 10000;
-//view_height = 10000;
+//view_width = 6000;
+//view_height = 6000;
 
 
 // Crear la cámara

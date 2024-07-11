@@ -1,7 +1,7 @@
 {
   "$GMSprite":"",
   "%Name":"spr_wall_corner_bottomleft",
-  "bboxMode":0,
+  "bboxMode":1,
   "bbox_bottom":255,
   "bbox_left":0,
   "bbox_right":255,
