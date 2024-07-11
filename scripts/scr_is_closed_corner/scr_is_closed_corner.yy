@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_is_closed_corner",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_is_closed_corner",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

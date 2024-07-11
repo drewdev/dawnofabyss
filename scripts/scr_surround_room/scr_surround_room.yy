@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_surround_room",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_surround_room",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

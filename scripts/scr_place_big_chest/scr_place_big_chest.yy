@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_place_big_chest",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_place_big_chest",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

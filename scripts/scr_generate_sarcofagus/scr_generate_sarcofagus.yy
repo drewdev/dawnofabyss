@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_generate_sarcofagus",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_generate_sarcofagus",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
