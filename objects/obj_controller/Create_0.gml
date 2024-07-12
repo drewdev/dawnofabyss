@@ -54,6 +54,17 @@ function create_new_map() {
 		global.library_quantity += 1;
 	}
 	instance_create_layer(0, 0, "Instances", obj_level_display);
+	// Evento Create del obj_controller
+	var cell_size = 32; // Tamaño de las celdas de la cuadrícula
+	global.grid = mp_grid_create(0, 0, global.map_width * 256 div cell_size, global.map_height * 256 div cell_size, cell_size, cell_size);
+	
+	// Rellenar la cuadrícula con colisiones de objetos sólidos
+	mp_grid_add_instances(global.grid, obj_wall_bottom, true);
+	mp_grid_add_instances(global.grid, obj_wall_top, true);
+	mp_grid_add_instances(global.grid, obj_wall_left_collision, true);
+	mp_grid_add_instances(global.grid, obj_wall_right_collision, true);
 }
 
 create_new_map();
+
+

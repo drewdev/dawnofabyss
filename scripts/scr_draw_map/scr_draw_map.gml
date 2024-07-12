@@ -197,5 +197,6 @@ function draw_map() {
 	}
 	
 	generate_collision_walls();
-	
+	// In your map generation code
+	place_skeleton_warriors(50); // Adjust the number of skeletons as needed
 }

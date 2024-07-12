@@ -28,7 +28,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"spr_wall_left_collision",
     "path":"sprites/spr_wall_left_collision/spr_wall_left_collision.yy",
