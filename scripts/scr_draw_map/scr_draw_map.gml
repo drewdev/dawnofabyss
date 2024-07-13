@@ -121,9 +121,32 @@ function draw_map() {
                 instance_create_layer(map_x * 256, map_y * 256, "Instances", obj_dark);
             }
         }
-        // Añadir objetos aleatoriamente
-        generate_random_objects();
     }
+
+    // Eliminar obj_wall_corner_topright_open sobre obj_wall_bottom que no están en una esquina
+    var wall_bottom_list = ds_list_create();
+    var wall_corner_list = ds_list_create();
+
+    // Recopilar instancias de obj_wall_bottom y obj_wall_corner_topright_open
+    with (obj_wall_bottom) {
+        ds_list_add(wall_bottom_list, id);
+    }
+    with (obj_wall_corner_topright_open) {
+        ds_list_add(wall_corner_list, id);
+    }
+
+    // Verificar y eliminar obj_wall_corner_topright_open no deseados
+    for (var i = 0; i < ds_list_size(wall_corner_list); i++) {
+        var corner = wall_corner_list[| i];
+        if (position_meeting(corner.x, corner.y, obj_wall_bottom) && !is_open_corner(corner.x / 256, corner.y / 256)) {
+            with (corner) {
+                instance_destroy();
+            }
+        }
+    }
+
+    ds_list_destroy(wall_bottom_list);
+    ds_list_destroy(wall_corner_list);
 
     // Añadir paredes superiores e inferiores adicionales
     for (var map_x = 0; map_x < global.map_width; map_x++) {
@@ -168,35 +191,35 @@ function draw_map() {
         }
     }
 
-	var new_object_count = 0;
-	var attempts = 0; // Contador de intentos
-	var max_attempts = 300; // Aumentamos el límite de intentos
-	var instance = obj_library;
-	while (new_object_count < 3 && attempts < max_attempts) {
-	    // Escoger una posición aleatoria dentro del mapa
-	    var obj_x = irandom(global.map_width - 2) + 1; // Asegura que no seleccionemos los bordes
-	    var obj_y = irandom(global.map_height - 1);
+    var new_object_count = 0;
+    var attempts = 0; // Contador de intentos
+    var max_attempts = 300; // Aumentamos el límite de intentos
+    var instance = obj_library;
+    while (new_object_count < 3 && attempts < max_attempts) {
+        // Escoger una posición aleatoria dentro del mapa
+        var obj_x = irandom(global.map_width - 2) + 1; // Asegura que no seleccionemos los bordes
+        var obj_y = irandom(global.map_height - 1);
 
-	    // Verificar las condiciones para colocar el nuevo objeto
-	    if (instance_position(obj_x * 256, obj_y * 256, obj_wall_bottom) != noone &&
-	        instance_position((obj_x - 1) * 256, obj_y * 256, obj_wall_bottom) != noone &&
-	        instance_position((obj_x + 1) * 256, obj_y * 256, obj_wall_bottom) != noone) {
-				if (global.level mod 5 == 0 && new_object_count == 0) {
-					instance = obj_boss_door;
-				} else { instance = obj_library }
-	        instance_create_layer(obj_x * 256 + 120, obj_y * 256 + 30, "Instances", instance);
-	        new_object_count++;
-	    }
-	    attempts++;
-	}
+        // Verificar las condiciones para colocar el nuevo objeto
+        if (instance_position(obj_x * 256, obj_y * 256, obj_wall_bottom) != noone &&
+            instance_position((obj_x - 1) * 256, obj_y * 256, obj_wall_bottom) != noone &&
+            instance_position((obj_x + 1) * 256, obj_y * 256, obj_wall_bottom) != noone) {
+                if (global.level mod 5 == 0 && new_object_count == 0) {
+                    instance = obj_boss_door;
+                } else { instance = obj_library }
+            instance_create_layer(obj_x * 256 + 120, obj_y * 256 + 30, "Instances", instance);
+            new_object_count++;
+        }
+        attempts++;
+    }
 
-	if (new_object_count < 3) {
-	    show_debug_message("No se pudieron colocar todas las instancias de obj_library. Intentos: " + string(attempts));
-	} else {
-	    show_debug_message("Todas las instancias de obj_library colocadas.");
-	}
-	
-	generate_collision_walls();
-	// In your map generation code
-	place_skeleton_warriors(20); // Adjust the number of skeletons as needed
+    if (new_object_count < 3) {
+        show_debug_message("No se pudieron colocar todas las instancias de obj_library. Intentos: " + string(attempts));
+    } else {
+        show_debug_message("Todas las instancias de obj_library colocadas.");
+    }
+
+    generate_collision_walls();
+    // In your map generation code
+    place_skeleton_warriors(20); // Adjust the number of skeletons as needed
 }
