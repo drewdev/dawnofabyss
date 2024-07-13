@@ -10,8 +10,8 @@
   "name":"obj_level_display",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/Objects/player.yy",
+    "name":"hud",
+    "path":"folders/Objects/hud.yy",
   },
   "parentObjectId":null,
   "persistent":false,
