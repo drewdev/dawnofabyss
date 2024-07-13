@@ -277,6 +277,9 @@ if (hp > 0 && invulnerability_timer <= 0 && place_meeting(x, y, obj_player) && o
     // Set invulnerability timer to avoid multiple hits
     invulnerability_timer = 100; // Adjust this value as needed
 	// Iniciar screen shake
+	var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
+    dmg.damage_value = 10; // Ajusta este valor al daño recibido
+    dmg.draw_color = c_white;
     global.shake_timer = 5; // Duración del screen shake (ajusta según sea necesario)
 }
 

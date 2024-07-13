@@ -44,9 +44,9 @@ for (var i = 0; i < num_segments; i++) {
     var x1 = screen_x + cos(a1) * circle_radius;
     var y1 = screen_y + sin(a1) * circle_radius;
 
-    draw_vertex_color(screen_x, screen_y, dark_red, 0.3);
-    draw_vertex_color(x0, y0, dark_red, 0.3);
-    draw_vertex_color(x1, y1, dark_red, 0.3);
+    draw_vertex_color(screen_x, screen_y, dark_red, 0.2);
+    draw_vertex_color(x0, y0, dark_red, 0.2);
+    draw_vertex_color(x1, y1, dark_red, 0.2);
 }
 draw_primitive_end();
 

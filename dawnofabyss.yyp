@@ -54,6 +54,7 @@
   },
   "name":"dawnofabyss",
   "resources":[
+    {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},},
     {"id":{"name":"fnt_object_name","path":"fonts/fnt_object_name/fnt_object_name.yy",},},
     {"id":{"name":"obj_blood","path":"objects/obj_blood/obj_blood.yy",},},
     {"id":{"name":"obj_boss_door","path":"objects/obj_boss_door/obj_boss_door.yy",},},
@@ -62,6 +63,7 @@
     {"id":{"name":"obj_chest_big","path":"objects/obj_chest_big/obj_chest_big.yy",},},
     {"id":{"name":"obj_chest","path":"objects/obj_chest/obj_chest.yy",},},
     {"id":{"name":"obj_controller","path":"objects/obj_controller/obj_controller.yy",},},
+    {"id":{"name":"obj_damage_display","path":"objects/obj_damage_display/obj_damage_display.yy",},},
     {"id":{"name":"obj_dark","path":"objects/obj_dark/obj_dark.yy",},},
     {"id":{"name":"obj_darkness","path":"objects/obj_darkness/obj_darkness.yy",},},
     {"id":{"name":"obj_door","path":"objects/obj_door/obj_door.yy",},},

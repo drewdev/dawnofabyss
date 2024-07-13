@@ -15,7 +15,7 @@ global.level = 1;
 
 // screen shake effect
 global.shake_timer = 0;
-global.shake_magnitude = 3; // Ajusta este valor según la intensidad deseada
+global.shake_magnitude = 5; // Ajusta este valor según la intensidad deseada
 global.view_xview_start = view_xview[0];
 global.view_yview_start = view_yview[0];
 

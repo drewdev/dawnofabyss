@@ -67,9 +67,11 @@ if (!knockback && invulnerability_timer <= 0) {
             path = noone;
         }
         attacking = false;
-		
+		var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
+		dmg.damage_value = 10; // Ajusta este valor al daño recibido
+		dmg.draw_color = c_red;
         // Iniciar screen shake
-        //global.shake_timer = 10; // Duración del screen shake (ajusta según sea necesario)
+        global.shake_timer = 10; // Duración del screen shake (ajusta según sea necesario)
     }
 }
 
@@ -209,7 +211,6 @@ if (attacking && sprite_index == spr_player_attack && image_index >= sprite_get_
 
                 // Establecer invulnerabilidad para evitar múltiples golpes instantáneos
                 invulnerability_timer = 30; // Ajusta el valor según sea necesario
-
                 // Iniciar screen shake
                 global.shake_timer = 5; // Duración del screen shake (ajusta según sea necesario)
             }
@@ -266,6 +267,5 @@ if (global.clicked_exit && place_meeting(x, y, obj_scenary_exit)) {
     global.clicked_exit = false;
 }
 
-// Aplicar screen shake
 scr_screen_shake();
 show_debug_message(global.shake_timer)
