@@ -182,12 +182,16 @@ if (knockback) {
                 y += lengthdir_y(move_speed, angle);
             }
 
-            // Inflict damage to player if in range
+            // Inflict damage to player if in range CURRENTLY NOT BEING USED
             if (place_meeting(x, y, obj_player)) {
                 with (obj_player) {
                     if (invulnerability_timer <= 0) {
-                        hp -= 10; // Ajusta el valor de daño según sea necesario
+                        var damage = irandom_range(obj_skeleton_warrior.minAttack, obj_skeleton_warrior.maxAttack);
+						hp -= damage; // Ajusta el valor de daño según sea necesario // Ajusta el valor de daño según sea necesario
                         invulnerability_timer = 30; // Evitar múltiples golpes instantáneos
+						var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
+						dmg.damage_value = damage; // Ajusta este valor al daño recibido
+						dmg.draw_color = c_red;
                     }
                 }
             }
@@ -258,7 +262,7 @@ if (invulnerability_timer > 0) {
 
 // Check for player attacks only if not invulnerable and not dead
 if (hp > 0 && invulnerability_timer <= 0 && place_meeting(x, y, obj_player) && obj_player.attacking) {
-    hp -= 10; // Decrease health
+    
     state = State.Hit;
     sprite_index = spr_skeleton_warrior_hit;
     image_speed = 1;
@@ -275,12 +279,19 @@ if (hp > 0 && invulnerability_timer <= 0 && place_meeting(x, y, obj_player) && o
     knockback_direction = point_direction(obj_player.x, obj_player.y, x, y);
 
     // Set invulnerability timer to avoid multiple hits
-    invulnerability_timer = 100; // Adjust this value as needed
-	// Iniciar screen shake
+    invulnerability_timer = 50; // Adjust this value as needed
+
+	var damage = irandom_range(obj_player.minAttack, obj_player.maxAttack);
+	hp -= damage; // Decrease health
 	var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
-    dmg.damage_value = 10; // Ajusta este valor al daño recibido
-    dmg.draw_color = c_white;
-    global.shake_timer = 5; // Duración del screen shake (ajusta según sea necesario)
+    dmg.damage_value = damage; // Ajusta este valor al daño recibido
+	if (damage == obj_player.maxAttack) {
+		dmg.draw_color = c_yellow;
+	} else {
+		dmg.draw_color = c_white;
+	}
+	// Iniciar screen shake
+    global.shake_timer = 5; // Duración del screen shake
 }
 
 // Adjust the direction and animation scale for walking and idle states

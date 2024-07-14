@@ -8,6 +8,9 @@ global.new_target = noone;
 // Inicializar la variable path
 path = noone;
 path_direction = noone;
+// player stats
+minAttack = 5;
+maxAttack = 10;
 hp = 200; // Health points
 // Set depth of character and sword
 depth = -50; // Character's depth (higher value, drawn below)

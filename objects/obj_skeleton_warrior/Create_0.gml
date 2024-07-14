@@ -19,6 +19,8 @@ vision_range = 750; // Range for detecting the player
 attack_range = 100; // Range for attacking the player
 move_speed = 4; // Movement speed
 hp = 50; // Health points
+minAttack = 1;
+maxAttack = 5;
 idle_time = 0; // Timer for idle state
 hit = false;
 // Set a random initial direction

@@ -25,7 +25,7 @@ draw_sprite(spr_life_circle, 0, screen_x, screen_y);
 // Dibujar la barra de progreso circular
 // Dibujar la barra de progreso circular
 
-var dark_red = make_color_rgb(113, 4, 5); // Ajusta los valores RGB y alfa según sea necesario
+var dark_red = make_color_rgb(255, 4, 5); // Ajusta los valores RGB y alfa según sea necesario
 
 // Dibujar la barra de progreso circular
 draw_set_alpha(0.2); // Ajusta la transparencia según sea necesario

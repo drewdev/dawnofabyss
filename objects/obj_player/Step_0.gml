@@ -1,4 +1,4 @@
-/// @description Move player towards mouse click
+/// @description Move player towards mouse click and keyboard input
 
 // Definir las direcciones
 var dir_right = 0;
@@ -8,6 +8,9 @@ var dir_left = 180;
 var move_speed = 6;
 var deceleration_distance = 150; // Distancia a la que empieza a desacelerar
 var min_speed = 1; // Velocidad mínima para desacelerar
+
+// Inicializar la velocidad actual
+var current_speed = 0;
 
 // Verificar si el jugador está muerto
 if (hp <= 0) {
@@ -48,7 +51,8 @@ if (knockback) {
 if (!knockback && invulnerability_timer <= 0) {
     var enemy = instance_place(x, y, obj_skeleton_warrior); // Verifica colisión con enemigos
     if (hp > 0 && enemy && enemy.state == State.Attack) {
-        hp -= 10; // Ajusta el valor de daño según sea necesario
+        var damage = irandom_range(obj_skeleton_warrior.minAttack, obj_skeleton_warrior.maxAttack);
+        hp -= damage; // Ajusta el valor de daño según sea necesario
         sprite_index = spr_player_hit;
         image_speed = 1;
         image_index = 0; // Restablece la animación
@@ -67,16 +71,68 @@ if (!knockback && invulnerability_timer <= 0) {
             path = noone;
         }
         attacking = false;
-		var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
-		dmg.damage_value = 10; // Ajusta este valor al daño recibido
-		dmg.draw_color = c_red;
+        var dmg = instance_create_layer(x, y, "Instances", obj_damage_display);
+        dmg.damage_value = damage; // Ajusta este valor al daño recibido
+        dmg.draw_color = c_red;
         // Iniciar screen shake
         global.shake_timer = 10; // Duración del screen shake (ajusta según sea necesario)
     }
 }
 
+// Variables para el movimiento por teclado
+var key_up = keyboard_check(vk_up);
+var key_down = keyboard_check(vk_down);
+var key_left = keyboard_check(vk_left);
+var key_right = keyboard_check(vk_right);
+
+// Mover al personaje si se presiona una tecla de movimiento
+var move_x = 0;
+var move_y = 0;
+
+if (!attacking && sprite_index != spr_player_hit) {
+    if (key_up) move_y -= 1;
+    if (key_down) move_y += 1;
+    if (key_left) move_x -= 1;
+    if (key_right) move_x += 1;
+
+    if (move_x != 0 || move_y != 0) {
+        if (move_x != 0 && move_y != 0) {
+            move_x *= sqrt(0.5);
+            move_y *= sqrt(0.5);
+        }
+
+        var new_x = x + move_x * move_speed;
+        var new_y = y + move_y * move_speed;
+
+        // Verificar colisiones durante el movimiento
+        if (!scr_check_collision(new_x, y)) {
+            x = new_x;
+            current_speed = move_speed;
+        }
+        if (!scr_check_collision(x, new_y)) {
+            y = new_y;
+            current_speed = move_speed;
+        }
+
+        // Ajustar la dirección y la animación mientras se mueve
+        if (move_x > 0) {
+            last_direction = dir_right; // Actualizar la última dirección
+            image_xscale = 1; // Mirar a la derecha
+        } else if (move_x < 0) {
+            last_direction = dir_left; // Actualizar la última dirección
+            image_xscale = -1; // Mirar a la izquierda
+        }
+
+        // Reproducir la animación de caminar mientras se mueve
+        if (sprite_index != spr_player_attack && sprite_index != spr_player_walk) {
+            sprite_index = spr_player_walk;
+            image_speed = 1;
+        }
+    }
+}
+
 // Verificar si se ha hecho clic en el ratón, solo si no está atacando ni en knockback
-if (!knockback && !attacking && mouse_check_button_released(mb_left)) {
+if (!knockback && !attacking && sprite_index != spr_player_hit && mouse_check_button_released(mb_left)) {
     target_x = mouse_x;
     target_y = mouse_y;
     if (instance_exists(global.new_target)) {
@@ -98,28 +154,30 @@ if (!knockback && !attacking && mouse_check_button_released(mb_left)) {
     }
 }
 
-// Si hay un objetivo establecido y no está en knockback ni en animación hit, mover al personaje hacia esa posición
+// Verificar si hay un objetivo establecido y no está en knockback ni en animación hit, mover al personaje hacia esa posición
 if (target_set && !knockback && sprite_index != spr_player_hit && !attacking) {
     // Verificar colisiones y mover al personaje a lo largo del path
     if (path != noone && path_position != 1) {
         var distance_to_target = point_distance(x, y, target_x, target_y);
         
         // Desacelerar si está cerca del objetivo
-        var current_speed = move_speed;
+        var path_speed1 = move_speed;
         if (distance_to_target < deceleration_distance) {
-            current_speed = max(min_speed, move_speed * (distance_to_target / deceleration_distance));
+            path_speed1 = max(min_speed, move_speed * (distance_to_target / deceleration_distance));
         }
 
         var dir = point_direction(x, y, path_get_point_x(path, path_position), path_get_point_y(path, path_position));
-        var new_x = x + lengthdir_x(current_speed, dir);
-        var new_y = y + lengthdir_y(current_speed, dir);
+        var new_x = x + lengthdir_x(path_speed1, dir);
+        var new_y = y + lengthdir_y(path_speed1, dir);
 
         // Verificar colisiones
         if (!scr_check_collision(new_x, y)) {
             x = new_x;
+            current_speed = path_speed1;
         }
         if (!scr_check_collision(x, new_y)) {
             y = new_y;
+            current_speed = path_speed1;
         }
 
         // Ajustar la dirección y la animación mientras se mueve
@@ -161,18 +219,37 @@ if (target_set && !knockback && sprite_index != spr_player_hit && !attacking) {
     }
 }
 
-// Si no hay un objetivo, detener la animación y cambiar a idle, solo si no está atacando ni en knockback
-if (!target_set && !knockback && !attacking && sprite_index != spr_player_hit) {
-    image_speed = 0;
-    image_index = 0; // Resetear la animación al primer frame
-    sprite_index = spr_player_idle; // Sprite idle para cuando el jugador no se mueve
-    // Mantener la dirección al quedar en idle
-    if (last_direction == dir_right) {
-        image_xscale = -1;
+// Función para actualizar la animación del jugador
+function update_player_animation(target_set, key_up, key_down, key_left, key_right, dir_right, dir_left) {
+    if (sprite_index == spr_player_hit && image_index < sprite_get_number(sprite_index) - 1) {
+        return; // No cambiar la animación mientras se reproduce la animación de hit
+    }
+
+    if (attacking) {
+        sprite_index = spr_player_attack;
+        image_speed = 1;
+        return; // No cambiar la animación si está atacando
+    }
+
+    if (target_set) {
+        if (sprite_index != spr_player_walk) {
+            sprite_index = spr_player_walk;
+            image_speed = 1;
+        }
+    } else if (key_up || key_down || key_left || key_right) {
+        if (sprite_index != spr_player_walk) {
+            sprite_index = spr_player_walk;
+            image_speed = 1;
+        }
     } else {
-        image_xscale = 1;
+        sprite_index = spr_player_idle;
+        image_speed = 0;
+        image_index = 0; // Resetear la animación al primer frame
     }
 }
+
+// Actualizar la animación del jugador
+update_player_animation(target_set, key_up, key_down, key_left, key_right, dir_right, dir_left);
 
 // Detectar ataque
 if (keyboard_check_pressed(ord("D")) && attack_cooldown <= 0 && !knockback) {
@@ -198,7 +275,8 @@ if (attacking && sprite_index == spr_player_attack && image_index >= sprite_get_
     if (enemy != noone) {
         with (enemy) {
             if (invulnerability_timer <= 0 && state != State.Dead) {
-                hp -= 10; // Ajustar el valor de daño según sea necesario
+                var damage = irandom_range(obj_skeleton_warrior.minAttack, obj_skeleton_warrior.maxAttack);
+                hp -= damage; // Ajusta el valor de daño según sea necesario
                 state = State.Hit;
                 sprite_index = spr_skeleton_warrior_hit;
                 image_speed = 1;
@@ -221,42 +299,12 @@ if (attacking && sprite_index == spr_player_attack && image_index >= sprite_get_
 // Volver al sprite idle después de atacar
 if (attacking && sprite_index == spr_player_attack && image_index >= sprite_get_number(spr_player_attack) - 1) {
     attacking = false;
-}
-
-// Asegurarse de que se retome la animación adecuada después de knockback y hit
-if (!knockback && sprite_index != spr_player_hit) {
-    if (target_set && !attacking) {
-        sprite_index = spr_player_walk;
-        image_speed = 1;
-    } else if (!target_set && !attacking) {
-        sprite_index = spr_player_idle;
-        image_speed = 0;
-        image_index = 0; // Resetear la animación al primer frame
-        // Mantener la dirección al quedar en idle
-        if (last_direction == dir_right) {
-            image_xscale = -1;
-        } else {
-            image_xscale = 1;
-        }
-    }
+    update_player_animation(target_set, key_up, key_down, key_left, key_right, dir_right, dir_left);
 }
 
 // Manejar la finalización de la animación de hit
 if (sprite_index == spr_player_hit && image_index >= sprite_get_number(sprite_index) - 1) {
-    if (target_set) {
-        sprite_index = spr_player_walk;
-        image_speed = 1;
-    } else {
-        sprite_index = spr_player_idle;
-        image_speed = 0;
-        image_index = 0; // Resetear la animación al primer frame
-        // Mantener la dirección al quedar en idle
-        if (last_direction == dir_right) {
-            image_xscale = -1;
-        } else {
-            image_xscale = 1;
-        }
-    }
+    update_player_animation(target_set, key_up, key_down, key_left, key_right, dir_right, dir_left);
 }
 
 // Verificar si el jugador está en la posición del obj_scenary_exit
@@ -267,5 +315,5 @@ if (global.clicked_exit && place_meeting(x, y, obj_scenary_exit)) {
     global.clicked_exit = false;
 }
 
+// Aplicar screen shake
 scr_screen_shake();
-show_debug_message(global.shake_timer)
