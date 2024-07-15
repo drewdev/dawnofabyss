@@ -1,15 +1,5 @@
 /// @description Initialize variables for skeleton warrior
 
-// States
-enum State {
-    Idle,
-    Walk,
-    Chase,
-    Attack,
-    Hit,
-    Dead
-}
-
 // Variables
 path = noone; // Inicializar la variable path
 state = State.Idle;

@@ -34,6 +34,7 @@ function reset_map() {
 	with (obj_level_display) instance_destroy();
 	// Elimianr enemigos
 	with (obj_skeleton_warrior) instance_destroy();
+	with (obj_archer_skeleton) instance_destroy();
 	
 	// Limpiar la lista de habitaciones
     ds_list_clear(global.rooms);
