@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_generate_cadaveres",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"objects",
+    "path":"folders/Scripts/objects.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

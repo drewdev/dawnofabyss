@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"scr_generate_collision_walls",
+  "%Name":"scr_generate_chest",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_generate_collision_walls",
+  "name":"scr_generate_chest",
   "parent":{
-    "name":"map",
-    "path":"folders/Scripts/map.yy",
+    "name":"objects",
+    "path":"folders/Scripts/objects.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

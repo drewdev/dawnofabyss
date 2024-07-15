@@ -126,6 +126,7 @@ function draw_map() {
     // Eliminar obj_wall_corner_topright_open sobre obj_wall_bottom que no están en una esquina
     var wall_bottom_list = ds_list_create();
     var wall_corner_list = ds_list_create();
+	var floor_list = ds_list_create();
 
     // Recopilar instancias de obj_wall_bottom y obj_wall_corner_topright_open
     with (obj_wall_bottom) {
@@ -134,12 +135,24 @@ function draw_map() {
     with (obj_wall_corner_topright_open) {
         ds_list_add(wall_corner_list, id);
     }
+	with (obj_floor) {
+		ds_list_add(floor_list, id);
+    }
 
     // Verificar y eliminar obj_wall_corner_topright_open no deseados
     for (var i = 0; i < ds_list_size(wall_corner_list); i++) {
         var corner = wall_corner_list[| i];
         if (position_meeting(corner.x, corner.y, obj_wall_bottom) && !is_open_corner(corner.x / 256, corner.y / 256)) {
             with (corner) {
+                instance_destroy();
+            }
+        }
+    }
+	
+	for (var i = 0; i < ds_list_size(floor_list); i++) {
+        var floor1 = floor_list[| i];
+        if (position_meeting(floor1.x, floor1.y, obj_wall_left) || position_meeting(floor1.x, floor1.y, obj_wall_right) || position_meeting(floor1.x, floor1.y, obj_wall_bottom)) {
+            with (floor1) {
                 instance_destroy();
             }
         }
@@ -221,5 +234,5 @@ function draw_map() {
 
     generate_collision_walls();
     // In your map generation code
-    place_skeletons(5, 10, 7); // Adjust the number of skeletons as needed
+    place_skeletons(entry_room_index); // Adjust the number of skeletons as needed
 }

@@ -44,9 +44,17 @@ global.library_quantity = irandom_range(1, 2)
 global.rooms_quantity = irandom_range(6, 9)
 global.rooms = ds_list_create();
 
+// Crear cantidad de enemigos
+
+global.skeleton_warrior = 7;
+global.skeleton_archer = 5;
+global.skeleton_mage = 3;
 // Inicializar el mapa vacío
 function create_new_map() {
 	scr_generate_map();
+	global.skeleton_warrior += 3;
+	global.skeleton_archer += 3;
+	global.skeleton_mage += 3;
 	global.map_width += irandom_range(1,2);
 	global.map_height += irandom_range(1,2);
 	if (global.level mod 2 == 0) {

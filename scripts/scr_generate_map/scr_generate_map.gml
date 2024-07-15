@@ -9,5 +9,6 @@ function scr_generate_map(){
 
 	connect_rooms();    // Conectar las habitaciones con pasillos más anchos
 	draw_map();         // Dibujar el mapa generado
+
 	place_big_chest(); // Agregar un cofre grande
 }

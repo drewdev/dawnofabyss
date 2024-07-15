@@ -49,6 +49,6 @@ function connect_rooms() {
             }
         }
     }
-
+	generate_random_objects();
     ds_list_destroy(connected_rooms);
 }

@@ -10,12 +10,6 @@ function create_room(x1, y1, x2, y2) {
     ds_list_add(room1, x1, y1, x2, y2);
     ds_list_add(global.rooms, room1);
     // Añadir cofres aleatoriamente
-    var num_chests = irandom_range(-1.8, 1); // Número aleatorio de cofres por habitación
-    for (var i = 0; i < num_chests; i++) {
-        var chest_x = irandom_range(x1, x2);
-        var chest_y = irandom_range(y1, y2);
-        if (can_place_object(chest_x * 256, chest_y * 256)) {
-            instance_create_layer(chest_x * 256, chest_y * 256, "Instances", obj_chest);
-        }
-    }
+	scr_generate_chest(x1, x2, y1, y2);
+	generate_random_objects();
 }

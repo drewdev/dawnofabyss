@@ -38,6 +38,6 @@ function connect_room_to_closest(room, visited) {
             ds_grid_set(map, center1_x, y_pos, 1);
         }
     }
-
+	generate_random_objects();
     ds_list_add(visited, room);
 }
