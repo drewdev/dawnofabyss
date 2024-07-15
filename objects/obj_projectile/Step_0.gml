@@ -1,11 +1,25 @@
-/// @description Arrow movement and collision
+/// @description Projectile movement and collision
 
-// Mover la flecha en la dirección establecida
-x += lengthdir_x(speed, direction);
-y += lengthdir_y(speed, direction);
+// Update the orbit angle
+orbit_angle += orbit_speed;
+if (orbit_angle >= 360) {
+    orbit_angle -= 360;
+}
 
-// Ajustar la rotación de la imagen según la dirección de movimiento
-image_angle = direction;
+// Calculate the orbit offsets
+var orbit_x = lengthdir_x(orbit_radius, orbit_angle);
+var orbit_y = lengthdir_y(orbit_radius, orbit_angle);
+
+// Calculate the movement towards the player
+var move_x = lengthdir_x(speed, direction_to_player);
+var move_y = lengthdir_y(speed, direction_to_player);
+
+// Apply the movement and orbiting effect
+x += move_x + orbit_x;
+y += move_y + orbit_y;
+
+// Rotate the projectile sprite
+image_angle += 10;
 
 // Check for collision with player
 if (place_meeting(x, y, obj_player)) {
@@ -19,11 +33,9 @@ if (place_meeting(x, y, obj_player)) {
             dmg.draw_color = c_aqua;
         }
     }
-    instance_destroy(); // Destroy arrow on impact
+    instance_destroy(); // Destroy projectile on impact
 }
-
-
-
-if (scr_check_collision(x, y)) {
+// Destroy the projectile if it collides with a wall
+if (scr_check_collision(x, y+90)) {
     instance_destroy();
 }

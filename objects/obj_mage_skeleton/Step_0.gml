@@ -177,7 +177,7 @@ if (knockback) {
                 var arrow = instance_create_layer(x, y-120, "Instances", obj_projectile);
                 var direction_to_player = point_direction(x, y, obj_player.x, obj_player.y);
                 arrow.direction = direction_to_player;
-                arrow.speed = 7; // Set the speed of the arrow
+                arrow.speed = 4; // Set the speed of the arrow
                 arrow_spawned = true; // Set flag to true to prevent multiple arrows
             }
 

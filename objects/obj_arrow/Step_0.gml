@@ -24,6 +24,6 @@ if (place_meeting(x, y, obj_player)) {
 
 
 
-if (scr_check_collision(x, y)) {
+if (scr_check_collision(x, y+50)) {
     instance_destroy();
 }
