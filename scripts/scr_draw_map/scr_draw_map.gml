@@ -221,5 +221,5 @@ function draw_map() {
 
     generate_collision_walls();
     // In your map generation code
-    place_skeletons(20, 20); // Adjust the number of skeletons as needed
+    place_skeletons(10, 10, 10); // Adjust the number of skeletons as needed
 }
