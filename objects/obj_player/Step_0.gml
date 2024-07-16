@@ -48,7 +48,7 @@ if (knockback) {
 }
 
 // Verificar ataques de enemigos y aplicar knockback al jugador
-if (!knockback && invulnerability_timer <= 0) {
+if (!force_field_active && !knockback && invulnerability_timer <= 0) {
     var enemy = instance_place(x, y, obj_skeleton_warrior); // Verifica colisión con enemigos
     if (hp > 0 && enemy && enemy.state == State.Attack) {
         var damage = irandom_range(obj_skeleton_warrior.minAttack, obj_skeleton_warrior.maxAttack);
@@ -315,5 +315,12 @@ if (global.clicked_exit && place_meeting(x, y, obj_scenary_exit)) {
     global.clicked_exit = false;
 }
 
+if (force_field_active) {
+    force_field_timer -= 1;
+    if (force_field_timer <= 0) {
+        force_field_active = false;
+        instance_destroy(force_field_instance); // Destruir el campo de fuerza después de 5 segundos
+    }
+}
 // Aplicar screen shake
 scr_screen_shake();

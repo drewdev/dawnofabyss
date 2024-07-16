@@ -174,7 +174,7 @@ if (knockback) {
 
             // Generate arrow at frame 19
             if (image_index > 18 && image_index < 24 && !arrow_spawned) {
-                var arrow = instance_create_layer(x, y-130, "Instances", obj_arrow);
+                var arrow = instance_create_layer(x, y-115, "Instances", obj_arrow);
                 var direction_to_player = point_direction(x, y, obj_player.x, obj_player.y);
                 arrow.direction = direction_to_player;
                 arrow.speed = 7; // Set the speed of the arrow

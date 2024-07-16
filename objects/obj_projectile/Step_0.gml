@@ -36,6 +36,6 @@ if (place_meeting(x, y, obj_player)) {
     instance_destroy(); // Destroy projectile on impact
 }
 // Destroy the projectile if it collides with a wall
-if (scr_check_collision(x, y+90)) {
+if (scr_check_collision(x, y+90) || place_meeting(x, y, obj_force_field)) {
     instance_destroy();
 }

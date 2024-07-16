@@ -185,7 +185,7 @@ if (knockback) {
             // Inflict damage to player if in range CURRENTLY NOT BEING USED
             if (place_meeting(x, y, obj_player)) {
                 with (obj_player) {
-                    if (invulnerability_timer <= 0) {
+                    if (!force_field_active && invulnerability_timer <= 0) {
                         var damage = irandom_range(obj_skeleton_warrior.minAttack, obj_skeleton_warrior.maxAttack);
 						hp -= damage; // Ajusta el valor de daño según sea necesario // Ajusta el valor de daño según sea necesario
                         invulnerability_timer = 30; // Evitar múltiples golpes instantáneos

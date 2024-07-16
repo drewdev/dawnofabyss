@@ -27,3 +27,5 @@ knockback_direction = 0;
 
 invulnerability_timer = 0;
 attack_cooldown = 0;
+force_field_active = false;
+force_field_timer = 0;

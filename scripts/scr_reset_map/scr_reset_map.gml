@@ -36,6 +36,7 @@ function reset_map() {
 	with (obj_skeleton_warrior) instance_destroy();
 	with (obj_archer_skeleton) instance_destroy();
 	with (obj_mage_skeleton) instance_destroy();
+	with (obj_force_field) instance_destroy();
 	// Limpiar la lista de habitaciones
     ds_list_clear(global.rooms);
 	// Limpiar paths
@@ -46,5 +47,5 @@ function reset_map() {
     // Regenerar el escenario llamando a la función de generar el mapa desde obj_controller
     with (obj_controller) {
         create_new_map();
-    } // O llama una función que tienes para generar el mapa
+	} 
 }

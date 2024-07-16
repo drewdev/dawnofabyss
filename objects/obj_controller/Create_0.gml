@@ -74,6 +74,7 @@ function create_new_map() {
 	mp_grid_add_instances(global.grid, obj_wall_top, true);
 	mp_grid_add_instances(global.grid, obj_wall_left_collision, true);
 	mp_grid_add_instances(global.grid, obj_wall_right_collision, true);
+	scr_force_field();
 }
 
 create_new_map();
