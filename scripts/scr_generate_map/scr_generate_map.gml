@@ -11,4 +11,5 @@ function scr_generate_map(){
 	draw_map();         // Dibujar el mapa generado
 
 	place_big_chest(); // Agregar un cofre grande
+	scr_update_scenario();
 }

@@ -22,7 +22,7 @@
   "height":256,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"641d5d7d-affb-4e6f-8101-36b68e9c118d","blendMode":0,"displayName":"default","isLocked":false,"name":"641d5d7d-affb-4e6f-8101-36b68e9c118d","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"641d5d7d-affb-4e6f-8101-36b68e9c118d","blendMode":0,"displayName":"default","isLocked":true,"name":"641d5d7d-affb-4e6f-8101-36b68e9c118d","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_skeleton_warrior_idle",
   "nineSlice":null,
