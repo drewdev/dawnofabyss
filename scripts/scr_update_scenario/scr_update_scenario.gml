@@ -1,7 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_update_scenario(){
-	if (global.level > 3) {
+	if (global.level < 3) {
 		obj_floor.sprite_index = spr_floor_a;
 		obj_wall_bottom.sprite_index = spr_wall_bottom_a;
 		obj_wall_corner_bottomleft.sprite_index = spr_wall_corner_bottomright_a;
@@ -15,6 +15,21 @@ function scr_update_scenario(){
 		obj_wall_left.sprite_index = spr_wall_right_a;
 		obj_wall_right.sprite_index = spr_wall_left_a;
 		obj_wall_top.sprite_index = spr_wall_bottom_a;
+	}
+	if (global.level > 3) {
+		obj_floor.sprite_index = Sprite11;
+		obj_wall_bottom.sprite_index = spr_wall_bottom;
+		obj_wall_corner_bottomleft.sprite_index = spr_wall_corner_bottomright;
+		//obj_wall_corner_bottomleft_open.sprite_index = spr_wall_corner_topright_a;
+		obj_wall_corner_bottomright.sprite_index = spr_wall_corner_bottomleft;
+		obj_wall_corner_bottomright_open.sprite_index = spr_wall_corner_topleft;
+		obj_wall_corner_topleft.sprite_index = spr_wall_right;
+		obj_wall_corner_topleft_open.sprite_index = spr_wall_corner_topright;
+		obj_wall_corner_topright.sprite_index = spr_wall_left;
+		obj_wall_corner_topright_open.sprite_index = spr_wall_corner_topleft;
+		obj_wall_left.sprite_index = spr_wall_right;
+		obj_wall_right.sprite_index = spr_wall_left;
+		obj_wall_top.sprite_index = spr_wall_bottom;
 	}
 	if (global.level > 6) {
 		obj_floor.sprite_index = spr_floor_b;

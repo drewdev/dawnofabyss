@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_level_exit",
-    "path":"sprites/spr_level_exit/spr_level_exit.yy",
+    "name":"spr_level_exit_new",
+    "path":"sprites/spr_level_exit_new/spr_level_exit_new.yy",
   },
   "spriteMaskId":null,
   "visible":true,
